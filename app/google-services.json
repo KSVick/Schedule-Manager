@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "808962318553",
+    "firebase_url": "https://schedulemanagerapp.firebaseio.com",
+    "project_id": "schedulemanagerapp",
+    "storage_bucket": "schedulemanagerapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808962318553:android:9dcbe0d7ff4d5c9d",
+        "android_client_info": {
+          "package_name": "com.example.schedulemanagerapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808962318553-sh9l2qbg1enf9raf9ovno5v7sg9bfqeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3jaIQW72OCdz49T_j1xQaUW50voxpiXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808962318553-sh9l2qbg1enf9raf9ovno5v7sg9bfqeh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

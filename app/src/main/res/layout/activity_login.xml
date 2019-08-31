@@ -17,7 +17,7 @@
         android:layout_marginBottom="50dp"
         android:maxWidth="10dp"
         android:maxHeight="10dp"
-        android:src="@drawable/logo_4"
+        android:src="@drawable/schedule_manager_logo"
         />
 
     <EditText
@@ -60,6 +60,7 @@
             android:text="Not Registerd Yet?"
             />
         <TextView
+            android:id="@+id/lblRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
@@ -68,5 +69,16 @@
             />
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/lblError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="#FF0000"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        />
 
 </LinearLayout>
