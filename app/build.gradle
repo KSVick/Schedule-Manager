@@ -36,6 +36,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.0.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
     implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.applandeo:material-calendar-view:1.4.0'
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

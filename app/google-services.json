@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "808962318553-7ehu7iv138tta0gvv7dou7lrbahf0ndu.apps.googleusercontent.com",
+          "client_id": "808962318553-pa450jkkj0hsoa0236rg64moa529i8g5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.schedulemanagerapplication",
-            "certificate_hash": "42986f846604af0f19ff46b35445ef2b7bc0a822"
+            "certificate_hash": "ab6bfb0b441568090ad1e7c0e02ccf8221ded336"
+          }
+        },
+        {
+          "client_id": "808962318553-do814btgm8eokmetpf28duag8cd6mov0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.schedulemanagerapplication",
+            "certificate_hash": "fa9d7116bd33ed84193872eba732776a30b2eab3"
           }
         },
         {

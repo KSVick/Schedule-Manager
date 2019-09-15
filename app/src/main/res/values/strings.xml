@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Schedule Manager Application</string>
+    <string name="server_client_id">YOUR_SERVER_CLIENT_ID</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.schedulemanagerapplication;
+package com.example.schedulemanagerapplication.model;
 
 public class User {
     private String email;

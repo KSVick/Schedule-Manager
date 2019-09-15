@@ -1,11 +1,10 @@
-package com.example.schedulemanagerapplication;
+package com.example.schedulemanagerapplication.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
+import com.example.schedulemanagerapplication.R;
+import com.example.schedulemanagerapplication.model.User;
+import com.example.schedulemanagerapplication.utility.Helper;
+import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -36,7 +38,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.NoSuchElementException;
 import java.util.concurrent.Semaphore;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener {
@@ -55,21 +56,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mAuth = FirebaseAuth.getInstance();
-        current = this;
-
-        txtUsername = findViewById(R.id.txtUsername);
-        txtPassword = findViewById(R.id.txtPassword);
-        lblRegister = findViewById(R.id.lblRegister);
-        lblError = findViewById(R.id.lblError);
-        final Button btnLogin = findViewById(R.id.btnLogin);
-        final com.google.android.gms.common.SignInButton btnGoogle = findViewById(R.id.google_button);
-
+        SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-
-        lblRegister.setOnClickListener(this);
-        btnLogin.setOnClickListener(this);
-        btnGoogle.setOnClickListener(this);
 
         // [START config_signin]
         // Configure Google Sign In
@@ -85,6 +73,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+
+        current = this;
+
+        txtUsername = findViewById(R.id.txtUsername);
+        txtPassword = findViewById(R.id.txtPassword);
+        lblRegister = findViewById(R.id.lblRegister);
+        lblError = findViewById(R.id.lblError);
+        final Button btnLogin = findViewById(R.id.btnLogin);
+        final com.google.android.gms.common.SignInButton btnGoogle = findViewById(R.id.google_button);
+
+        lblRegister.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
+        btnGoogle.setOnClickListener(this);
     }
 
     // [START on_start_check_user]
@@ -138,11 +139,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(current,"Sign "+user.getEmail(),Toast.LENGTH_LONG).show();
+
                             updateUI(user);
+                            updateCurrentUser(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-//                            Snackbar.make(findViewById(R.id.main_layout), "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
+                            Toast.makeText(current,"Failed"+task.getException().toString(),Toast.LENGTH_LONG).show();
                             updateUI(null);
                         }
 
@@ -190,20 +193,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateUI(FirebaseUser user) {
-//        hideProgressDialog();
-//        if (user != null) {
-//            mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
-//            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-//
-//            findViewById(R.id.signInButton).setVisibility(View.GONE);
-//            findViewById(R.id.signOutAndDisconnect).setVisibility(View.VISIBLE);
-//        } else {
-//            mStatusTextView.setText(R.string.signed_out);
-//            mDetailTextView.setText(null);
-//
-//            findViewById(R.id.signInButton).setVisibility(View.VISIBLE);
-//            findViewById(R.id.signOutAndDisconnect).setVisibility(View.GONE);
-//        }
+
+    }
+
+    private void updateCurrentUser(FirebaseUser user) {
+        Query query = databaseReference.orderByChild("email").equalTo(user.getEmail());
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (!dataSnapshot.exists()) {
+                    lblError.setText("Email doesn't exist!");
+                } else {
+                    User user = null;
+                    String key = "";
+                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                        user = userSnapshot.getValue(User.class);
+                        key = userSnapshot.getKey();
+                    }
+                    if (user != null) {
+                        Helper.user = user;
+                        SharedPrefManager sharedPrefManager = new SharedPrefManager(current);
+                        sharedPrefManager.saveSPString(SharedPrefManager.SP_USER_KEY, key);
+                        changeActivity();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                lblError.setText("Check your internet connection!");
+            }
+        });
+
     }
 
     public void changeActivity(){
@@ -238,14 +259,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             }
                             else{
                                 User user = new User();
+                                String key = "";
                                 for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
                                     user = userSnapshot.getValue(User.class);
+                                    key = userSnapshot.getKey();
                                 }
                                 Helper.user = user;
-                                if(password.equals(Helper.user.getPassword()) ==  false){
+                                if(!password.equals(Helper.user.getPassword())){
                                     lblError.setText("Invalid Username / Password!");
                                 }
                                 else{
+                                    SharedPrefManager sharedPrefManager = new SharedPrefManager(current);
+                                    sharedPrefManager.saveSPString(SharedPrefManager.SP_USER_KEY, key);
                                     changeActivity();
                                 }
                             }
