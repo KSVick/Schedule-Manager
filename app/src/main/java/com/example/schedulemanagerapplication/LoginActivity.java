@@ -29,6 +29,15 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.NoSuchElementException;
+import java.util.concurrent.Semaphore;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener {
     private TextView lblRegister,lblError;
@@ -36,6 +45,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private FirebaseAuth mAuth;
     private GoogleSignInClient mGoogleSignInClient;
     private Context current;
+    DatabaseReference databaseReference;
+    final Semaphore semaphore = new Semaphore(0);
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -53,6 +64,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         lblError = findViewById(R.id.lblError);
         final Button btnLogin = findViewById(R.id.btnLogin);
         final com.google.android.gms.common.SignInButton btnGoogle = findViewById(R.id.google_button);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         lblRegister.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
@@ -193,6 +206,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //        }
     }
 
+    public void changeActivity(){
+        Intent homeIntent = new Intent(this,HomeActivity.class);
+        startActivity(homeIntent);
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -211,8 +229,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     txtPassword.requestFocus();
                 }
                 else{
-                    lblError.setTextColor(Color.GREEN);
-                    lblError.setText("Login Success");
+                    Query query = databaseReference.orderByChild("username").equalTo(username);
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(!dataSnapshot.exists()){
+                                lblError.setText("Username doesn't exist!");
+                            }
+                            else{
+                                User user = new User();
+                                for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
+                                    user = userSnapshot.getValue(User.class);
+                                }
+                                Helper.user = user;
+                                if(password.equals(Helper.user.getPassword()) ==  false){
+                                    lblError.setText("Invalid Username / Password!");
+                                }
+                                else{
+                                    changeActivity();
+                                }
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            lblError.setText("Check your internet connection!");
+                        }
+                    });
                 }
                 break;
             case R.id.lblRegister:
@@ -227,6 +269,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        
     }
 }

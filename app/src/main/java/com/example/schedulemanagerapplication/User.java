@@ -15,6 +15,10 @@ public class User {
         this.gender = gender;
     }
 
+    public User(){
+
+    }
+
     public String getEmail() {
         return email;
     }
