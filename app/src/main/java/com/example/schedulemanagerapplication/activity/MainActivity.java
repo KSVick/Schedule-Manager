@@ -32,27 +32,34 @@ public class MainActivity extends AppCompatActivity {
         //CEK UDAH LOGIN ATAU BELUM
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        if(sharedPrefManager.getSPUserKey().equals("")){
+            Intent intent = new Intent(currentContext, LoginActivity.class);
+            startActivity(intent);
+        }else{
+            databaseReference.child(sharedPrefManager.getSPUserKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-        databaseReference.child(sharedPrefManager.getSPUserKey()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                if(user == null){
-                    Intent registerIntent = new Intent(currentContext, LoginActivity.class);
-                    startActivity(registerIntent);
-                }else{
-                    Helper.user = user;
-                    Toast.makeText(currentContext,"Welcome, "+user.getFullname(),Toast.LENGTH_LONG);
-                    Intent registerIntent = new Intent(currentContext, HomeActivity.class);
-                    startActivity(registerIntent);
+                    User user = dataSnapshot.getValue(User.class);
+                    if(!dataSnapshot.exists() || user == null ){
+                        Intent intent = new Intent(currentContext, LoginActivity.class);
+                        startActivity(intent);
+                    }else{
+                        Helper.user = user;
+                        Toast.makeText(currentContext,"Welcome, "+user.getFullname(),Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(currentContext, HomeActivity.class);
+                        startActivity(intent);
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Intent intent = new Intent(currentContext, LoginActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
-            }
-        });
 
     }
 }
