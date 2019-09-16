@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         Helper.user = user;
                         Toast.makeText(currentContext,"Welcome, "+user.getFullname(),Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(currentContext, HomeActivity.class);
+                        Intent intent = new Intent(currentContext, DateActivity.class);
                         startActivity(intent);
                     }
                 }

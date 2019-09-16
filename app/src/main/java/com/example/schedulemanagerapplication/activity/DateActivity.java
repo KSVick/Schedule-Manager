@@ -1,5 +1,6 @@
 package com.example.schedulemanagerapplication.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -10,14 +11,24 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schedulemanagerapplication.R;
 import com.example.schedulemanagerapplication.adapter.ScheduleAdapter;
 import com.example.schedulemanagerapplication.model.Schedule;
+import com.example.schedulemanagerapplication.model.User;
 import com.example.schedulemanagerapplication.utility.Converter;
+import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,58 +37,85 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class DateActivity extends AppCompatActivity {
+public class DateActivity extends AppCompatActivity implements View.OnClickListener {
     Context currentContext;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat actionDateFormat = new SimpleDateFormat("MMMM yyyy");
-    final ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
+    private ScheduleAdapter scheduleAdapter = null;
+    private Date currentDate = null;
+    TextView textViewDate = null;
+    private DatabaseReference databaseReference;
+    private SharedPrefManager sharedPrefManager;
+    private CompactCalendarView compactCalendarView;
+    private ArrayList<Schedule> schedules = new ArrayList<>();
+
+    private void refreshRecycleViewData(){
+        List<Event> events = compactCalendarView.getEvents(currentDate);
+        ArrayList<Schedule> schedules = Converter.eventsToSchedules(events);
+        scheduleAdapter.setSchedules(schedules);
+        scheduleAdapter.setMaster(this.schedules);
+        scheduleAdapter.notifyDataSetChanged();
+    }
+
+    public void refreshScheduleData(){
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    compactCalendarView.removeAllEvents();
+                    schedules = new ArrayList<>();
+                    for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
+                        Schedule schedule = userSnapshot.getValue(Schedule.class);
+                        String key = userSnapshot.getKey();
+                        Event ev = new Event(Color.BLUE, schedule.getDate().getTime(), schedule.getDescription());
+                        compactCalendarView.addEvent(ev);
+                        schedules.add(schedule);
+                    }
+                }
+                refreshRecycleViewData();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date);
+        scheduleAdapter = new ScheduleAdapter(this);
         currentContext = this;
+        currentDate = new Date();
+        textViewDate = findViewById(R.id.activity_date_txtViewDate);
+        textViewDate.setText(dateFormat.format(currentDate));
 
         RecyclerView recyclerView = findViewById(R.id.task_recycleview);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(scheduleAdapter);
 
-        final CompactCalendarView compactCalendarView = findViewById(R.id.compactcalendar_view);
+        compactCalendarView = findViewById(R.id.compactcalendar_view);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
+
+        sharedPrefManager = new SharedPrefManager(this);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+sharedPrefManager.getSPUserKey()+"/Schedules");
+
+        refreshScheduleData();
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
         actionBar.setTitle(actionDateFormat.format(compactCalendarView.getFirstDayOfCurrentMonth()));
 
-        Date date = null;
-        try{
-            date = dateFormat.parse("20/09/2019");
-        }catch (Exception e){}
-        final Event ev1 = new Event(Color.GRAY, date.getTime(), "Kumpul TPA Mobile");
-        compactCalendarView.addEvent(ev1);
-
-
-        Event ev2 = new Event(Color.GREEN, date.getTime(), "Kumpul Lagi TPA Mobile");
-        compactCalendarView.addEvent(ev2);
-        Event ev3 = new Event(Color.GREEN, date.getTime(), "Kumpul Lagi Lagi TPA Mobile");
-        compactCalendarView.addEvent(ev3);
-
-        try {
-            Event ev4 = new Event(Color.GREEN, dateFormat.parse("22/09/2019").getTime(), "ASD ");
-            compactCalendarView.addEvent(ev4);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
-                List<Event> events = compactCalendarView.getEvents(dateClicked);
-
-                ArrayList<Schedule> schedules = Converter.eventsToSchedules(events);
-                scheduleAdapter.setSchedules(schedules);
-                scheduleAdapter.notifyDataSetChanged();
+                TextView textViewDate = findViewById(R.id.activity_date_txtViewDate);
+                textViewDate.setText(dateFormat.format(dateClicked));
+                currentDate = dateClicked;
+                refreshRecycleViewData();
             }
 
             @Override
@@ -85,7 +123,28 @@ public class DateActivity extends AppCompatActivity {
                 actionBar.setTitle(actionDateFormat.format(firstDayOfNewMonth));
             }
         });
+
+        findViewById(R.id.activity_date_btnInsertSchedule).setOnClickListener(this);
     }
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.activity_date_btnInsertSchedule:
+                TextInputEditText textInputEditText = findViewById(R.id.activity_date_txtInputDescription);
+                String description = textInputEditText.getText().toString();
+
+                String userId = sharedPrefManager.getSPUserKey();
+                String scheduleId = databaseReference.push().getKey();
+                Schedule schedule = new Schedule(description, currentDate, scheduleId);
+                databaseReference.child(scheduleId).setValue(schedule);
+
+                textInputEditText.setText("");
+                Toast.makeText(currentContext, "Success", Toast.LENGTH_SHORT).show();
+                refreshScheduleData();
+                break;
+        }
+
+    }
 }

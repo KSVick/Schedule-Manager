@@ -5,6 +5,7 @@ import java.util.Date;
 public class Schedule {
     private String description;
     private Date date;
+    private String id;
 
     public String getDescription() {
         return description;
@@ -22,8 +23,21 @@ public class Schedule {
         this.date = date;
     }
 
-    public Schedule(String description, Date date) {
+    public Schedule(String description, Date date, String id) {
         this.description = description;
         this.date = date;
+        this.id = id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Schedule(){
+
     }
 }
