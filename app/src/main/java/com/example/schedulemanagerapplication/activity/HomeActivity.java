@@ -1,30 +1,18 @@
 package com.example.schedulemanagerapplication.activity;
 
 import android.os.Bundle;
-
-import com.example.schedulemanagerapplication.R;
-import com.example.schedulemanagerapplication.utility.Helper;
-import com.example.schedulemanagerapplication.utility.SharedPrefManager;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import android.view.View;
-
-import androidx.core.view.GravityCompat;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.drawerlayout.widget.DrawerLayout;
-
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.view.Menu;
-import android.widget.TextView;
-import android.widget.Toast;
+import com.example.schedulemanagerapplication.R;
+import com.google.android.material.navigation.NavigationView;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,7 +37,7 @@ public class HomeActivity extends AppCompatActivity
 //        setContentView(R.layout.nav_header_home);
 //        lblFullname = findViewById(R.id.activity_home_lblFullname);
 //        lblEmail = findViewById(R.id.activity_home_lblEmail);
-//
+////
 //        lblEmail.setText(Helper.user.getEmail());
 //        lblFullname.setText(Helper.user.getFullname());
 
