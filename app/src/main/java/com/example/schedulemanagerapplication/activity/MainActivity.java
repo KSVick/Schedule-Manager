@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         currentContext = this;
 
-        //CEK UDAH LOGIN ATAU BELUM
+//        CEK UDAH LOGIN ATAU BELUM
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         if(sharedPrefManager.getSPUserKey().equals("")){
