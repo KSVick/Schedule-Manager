@@ -4,13 +4,29 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.schedulemanagerapplication.R;
+import com.example.schedulemanagerapplication.adapter.AgendaAdapter;
+import com.example.schedulemanagerapplication.adapter.ScheduleAdapter;
+import com.example.schedulemanagerapplication.model.Schedule;
+import com.example.schedulemanagerapplication.utility.SharedPrefManager;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +41,9 @@ public class TodayAgendaFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private DatabaseReference databaseReference;
+    private SharedPrefManager sharedPrefManager;
+    private AgendaAdapter agendaAdapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -63,11 +82,65 @@ public class TodayAgendaFragment extends Fragment {
         }
     }
 
+    public static boolean isSameDay(Calendar cal1, Calendar cal2) {
+        if (cal1 == null || cal2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR));
+    }
+
+    public static boolean isSameDay(Date date1, Date date2) {
+        if (date1 == null || date2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+        return isSameDay(cal1, cal2);
+    }
+
+    public void refreshScheduleData(){
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ArrayList<Schedule> schedules;
+                if(dataSnapshot.exists()){
+                    schedules = new ArrayList<>();
+                    for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
+                        Schedule schedule = userSnapshot.getValue(Schedule.class);
+//                        String key = userSnapshot.getKey();
+                        if(isSameDay(schedule.getDate(),new Date()))
+                            schedules.add(schedule);
+                    }
+                    agendaAdapter.setSchedules(schedules);
+                    agendaAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ViewGroup root = (ViewGroup)inflater.inflate(R.layout.fragment_today_agenda, container, false);
+        RecyclerView recyclerView = root.findViewById(R.id.fragment_today_agenda_recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+        sharedPrefManager = new SharedPrefManager(root.getContext());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+sharedPrefManager.getSPUserKey()+"/Schedules");
+        agendaAdapter = new AgendaAdapter(root.getContext());
+        recyclerView.setAdapter(agendaAdapter);
+        refreshScheduleData();
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_today_agenda, container, false);
+        return root;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
