@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +25,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView lblUsername,lblGender;
+    private TextView lblUsername,lblGender,lblError;
     private EditText txtEmail,txtFullname;
+    private ImageView imgSchedule;
     DatabaseReference databaseReference;
     String id;
     @Override
@@ -36,6 +39,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         lblUsername = findViewById(R.id.profile_lblUsername);
         txtEmail = findViewById(R.id.profile_txtEmail);
         txtFullname = findViewById(R.id.profile_txtFullname);
+        lblError = findViewById(R.id.profile_lblError);
+        imgSchedule = findViewById(R.id.profile_imgSchedule);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         lblGender.setText(Helper.user.getGender());
@@ -46,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         final Button btnSave = findViewById(R.id.profile_btnSave);
 
         btnSave.setOnClickListener(this);
+        imgSchedule.setOnClickListener(this);
 
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
 //        Ini Id Usernya : sharedPrefManager.getSPUserKey()
@@ -57,9 +63,23 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.profile_btnSave:
-//                databaseReference.child(id).child("fullname").setValue(txtFullname.getText());
-                Intent homeIntent = new Intent(this, HomeActivity.class);
-                startActivity(homeIntent);
+                String fullname = txtFullname.getText().toString();
+
+                if(fullname.length() < 5 || fullname.length() > 30){
+                    txtFullname.setError("Fullname must be between 5 and 30 characters");
+                    txtFullname.requestFocus();
+                    lblError.setText("Fullname must be between 5 and 30 characters");
+                }
+                else {
+                    databaseReference.child(id).child("fullname").setValue(fullname);
+                    Helper.user.setFullname(fullname);
+                    Intent homeIntent = new Intent(this, HomeActivity.class);
+                    startActivity(homeIntent);
+                    break;
+                }
+            case R.id.profile_imgSchedule:
+                Intent scheduleIntent = new Intent(this, DateActivity.class);
+                startActivity(scheduleIntent);
                 break;
         }
     }
