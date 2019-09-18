@@ -4,12 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ProfileActivity">
+    tools:context=".activity.ProfileActivity"
+    android:shape="rectangle">
     <RelativeLayout
         android:id="@+id/rellay1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp">
+        android:paddingBottom="20dp"
+        android:shape="rectangle"
+        android:background="@drawable/gradient"
+        >
 
         <RelativeLayout
             android:id="@+id/imgUser"
@@ -53,6 +57,17 @@
             android:textAllCaps="true"
             android:textColor="@color/gender"
             android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/profile_imgSchedule"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_schedule_black_24dp" />
 
     </RelativeLayout>
     <LinearLayout
@@ -145,6 +160,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/linlay1"
+        android:background="#E9F5F1"
         >
 
         <LinearLayout
@@ -172,6 +188,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Email"
+                    android:textColor="#000000"
                     android:editable="false"
                     />
 
@@ -196,6 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fullname"
+                    android:textColor="#000000"
                     />
 
             </LinearLayout>
@@ -207,7 +225,18 @@
                 android:layout_marginTop="30dp"
                 android:text="Save"
                 />
-
+            <TextView
+                android:id="@+id/profile_lblError"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:textColor="#FF0000"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:gravity="center"
+                />
         </LinearLayout>
 
     </RelativeLayout>
