@@ -1,6 +1,8 @@
 package com.example.schedulemanagerapplication.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -89,8 +91,9 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.nav_profile) {
+            Intent profileIntent = new Intent(this,ProfileActivity.class);
+            startActivity(profileIntent);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_tools) {

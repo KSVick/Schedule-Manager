@@ -3,4 +3,9 @@
     <color name="colorPrimary">#EC3047</color>
     <color name="colorPrimaryDark">#3F2B2C</color>
     <color name="colorAccent">#ACA287</color>
+
+    <color name="gender">#2F7092</color>
+    <color name="headings">#3797CF</color>
+    <color name="followersBg">#65DCE5</color>
+    <color name="followingBg">#49BEFF</color>
 </resources>
