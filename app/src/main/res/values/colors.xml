@@ -8,4 +8,6 @@
     <color name="headings">#3797CF</color>
     <color name="followersBg">#65DCE5</color>
     <color name="followingBg">#49BEFF</color>
+    <color name="following">#1EABEE</color>
+    <color name="unfollow">#FC4838</color>
 </resources>
