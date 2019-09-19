@@ -54,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
                         Helper.user = user;
                         Toast.makeText(currentContext,"Welcome, "+user.getFullname(),Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(currentContext, HomeActivity.class);
+
+//                        Intent intent = new Intent(currentContext, AddApointmentActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+//                        intent.putExtra("user_identifier","-LnaCRnm2Gu8FuztzlcL");
                         startActivity(intent);
                     }
                 }

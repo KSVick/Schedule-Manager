@@ -16,6 +16,7 @@
         <activity android:name=".activity.SearchUserActivity" />
         <activity android:name=".activity.ManageUserActivity" />
         <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.AddApointmentActivity"></activity>
         <activity
             android:name=".activity.HomeActivity"
             android:label="@string/title_activity_home"

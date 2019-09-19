@@ -1,7 +1,17 @@
 package com.example.schedulemanagerapplication.utility;
 
+import android.graphics.Color;
+
+import androidx.annotation.NonNull;
+
 import com.example.schedulemanagerapplication.model.Schedule;
+import com.example.schedulemanagerapplication.model.User;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,6 +37,33 @@ public class Converter
             i++;
         }
         return -1;
+    }
+
+    public static ArrayList<Schedule> getUserSchedulesByKey(String key){
+        DatabaseReference databaseReference;
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+key+"/Schedules");
+        final ArrayList<Schedule> schedules = new ArrayList<>();
+
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+
+                    for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
+                        Schedule schedule = userSnapshot.getValue(Schedule.class);
+                        String key = userSnapshot.getKey();
+
+                        schedules.add(schedule);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        return schedules;
     }
 
 }

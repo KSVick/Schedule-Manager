@@ -23,7 +23,6 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class SearchUserActivity extends AppCompatActivity implements View.OnClickListener {
-
     TextView lblError;
     Button btnSave;
     EditText txtUsername;
@@ -64,11 +63,15 @@ public class SearchUserActivity extends AppCompatActivity implements View.OnClic
                                 lblError.setText("Username doesn't exist!");
                             } else {
                                 User user = null;
+                                String id = "";
                                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                                     user = userSnapshot.getValue(User.class);
+                                    id = userSnapshot.getKey();
                                 }
                                 if (user != null) {
                                     Helper.searchUser = user;
+                                    Helper.id = id;
+
                                     changeActivity();
                                 }
                             }
