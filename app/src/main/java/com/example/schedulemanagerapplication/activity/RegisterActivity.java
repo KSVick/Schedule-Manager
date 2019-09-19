@@ -24,8 +24,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private EditText txtUsername,txtPassword,txtConfirmPassword,txtEmail,txtFullname;
     private RadioGroup radioGroupGender;
     private CheckBox checkBoxAgreement;
-    private TextView lblError,lblLogin;
-    private RadioButton radioMale,radioFemale;
+    private TextView lblError, lblLogin;
+    private RadioButton radioMale, radioFemale;
     DatabaseReference databaseReference;
 
     public boolean validateEmail(String email){

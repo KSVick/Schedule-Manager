@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.schedulemanagerapplication.R;
 import com.example.schedulemanagerapplication.utility.Helper;
@@ -38,6 +39,7 @@ public class UserDetailsActivity extends AppCompatActivity implements View.OnCli
         txtFullname.setText(Helper.searchUser.getFullname());
 
         imgSchedule.setOnClickListener(this);
+        Toast.makeText(this, Helper.id, Toast.LENGTH_SHORT).show();
     }
 
     @Override

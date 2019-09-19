@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.schedulemanagerapplication.R;
+import com.example.schedulemanagerapplication.utility.Helper;
 
 public class AddApointmentActivity extends AppCompatActivity {
 
@@ -17,10 +18,9 @@ public class AddApointmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_apointment);
 
-        Intent intent = getIntent();
-        String message = intent.getStringExtra("user_identifier");
+//        Intent intent = getIntent();
+//        String id = intent.getStringExtra("user_identifier");
+        Toast.makeText(this, Helper.id, Toast.LENGTH_SHORT).show();
 
-
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
     }
 }
