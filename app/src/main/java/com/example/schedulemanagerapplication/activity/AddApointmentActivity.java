@@ -1,6 +1,7 @@
 package com.example.schedulemanagerapplication.activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,32 +9,41 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schedulemanagerapplication.R;
+import com.example.schedulemanagerapplication.model.Appointment;
 import com.example.schedulemanagerapplication.model.Schedule;
 import com.example.schedulemanagerapplication.utility.Helper;
 import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class AddApointmentActivity extends AppCompatActivity implements View.OnClickListener {
+    private Date currentDate = null;
     DatabaseReference databaseReference;
     DatabaseReference mydatabaseReference;
+    DatabaseReference databaseReferenceAppointment;
     private SharedPrefManager sharedPrefManager;
     private CompactCalendarView compactCalendarView;
     private ArrayList<Schedule> schedules = new ArrayList<>();
     private ArrayList<Schedule> myschedules = new ArrayList<>();
-    private Button btnCompare;
+    private Button btnCompare, btnInsert;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat actionDateFormat = new SimpleDateFormat("MMMM yyyy");
 
     public void refreshScheduleData(){
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -103,18 +113,40 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
         sharedPrefManager = new SharedPrefManager(this);
         mydatabaseReference = FirebaseDatabase.getInstance().getReference("Users/"+sharedPrefManager.getSPUserKey()+"/Schedules");
 
-
         btnCompare = findViewById(R.id.add_apointment_button_compare_schedule);
-        Toast.makeText(this, Helper.id, Toast.LENGTH_SHORT).show();
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+Helper.id+"/Schedules");
+        btnInsert = findViewById(R.id.activity_add_apointment_btnInsertSchedule);
 
-        compactCalendarView = findViewById(R.id.compactcalendar_view);
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+Helper.id+"/Schedules");
+        databaseReferenceAppointment = FirebaseDatabase.getInstance().getReference("Users/"+Helper.id+"/Appointments");
+
+        compactCalendarView = findViewById(R.id.activity_add_appointment_compactcalendar_view);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
         compactCalendarView.setFirstDayOfWeek(Calendar.MONDAY);
         compactCalendarView.setEventIndicatorStyle(CompactCalendarView.FILL_LARGE_INDICATOR);
+
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setTitle(actionDateFormat.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+
         refreshScheduleData();
 
         btnCompare.setOnClickListener(this);
+        btnInsert.setOnClickListener(this);
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                TextView textViewDate = findViewById(R.id.activity_add_apointment_txtViewDate);
+                textViewDate.setText(dateFormat.format(dateClicked));
+                currentDate = dateClicked;
+
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                actionBar.setTitle(actionDateFormat.format(firstDayOfNewMonth));
+            }
+        });
+
     }
 
     @Override
@@ -125,7 +157,21 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
                 btnCompare.setEnabled(false);
                 break;
             case R.id.activity_add_apointment_btnInsertSchedule:
+                TextInputEditText textInputEditText = findViewById(R.id.activity_add_apointment_txtInputDescription);
+                String description = textInputEditText.getText().toString();
 
+                String userId = sharedPrefManager.getSPUserKey();
+                String scheduleId = databaseReferenceAppointment.push().getKey();
+                Appointment schedule = new Appointment(description, currentDate, scheduleId, userId);
+                databaseReferenceAppointment.child(scheduleId).setValue(schedule);
+
+                textInputEditText.setText("");
+                Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+                refreshScheduleData();
+
+                refreshScheduleData();
+                btnCompare.setEnabled(true);
+                break;
         }
     }
 }

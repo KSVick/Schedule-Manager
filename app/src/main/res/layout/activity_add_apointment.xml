@@ -8,7 +8,7 @@
 
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
-        android:id="@+id/compactcalendar_view"
+        android:id="@+id/activity_add_appointment_compactcalendar_view"
         android:layout_width="fill_parent"
         android:layout_height="250dp"
         android:paddingLeft="10dp"
