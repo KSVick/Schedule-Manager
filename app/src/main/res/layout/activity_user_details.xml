@@ -173,14 +173,15 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/userDetails_follow"
+                android:id="@+id/userDetails_btnFollow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="30dp"
                 android:text="Follow"
-                android:background="#1EABEE"
-                android:textColor="#F5F5F5"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#1EABEE"
                 />
 
             <LinearLayout

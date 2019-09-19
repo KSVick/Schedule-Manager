@@ -21,17 +21,20 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.schedulemanagerapplication.R;
 import com.example.schedulemanagerapplication.fragment.TodayAgendaFragment;
+import com.example.schedulemanagerapplication.utility.Helper;
 import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener {
     private TextView lblFullname,lblEmail;
+    DatabaseReference databaseReference;
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -68,18 +71,18 @@ public class HomeActivity extends AppCompatActivity
 //        lblEmail.setText(Helper.user.getEmail());
 //        lblFullname.setText(Helper.user.getFullname());
 
-//        SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
+        SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
 ////
 ////        Ini Id Usernya : sharedPrefManager.getSPUserKey()
 //        Toast.makeText(this, sharedPrefManager.getSPUserKey(), Toast.LENGTH_SHORT).show();
 
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        Log.d("CREATION",sharedPrefManager.getSPUserKey());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = databaseReference.child("-LnWbCzk_G6znCIh0UdG").child("Schedules");
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snap : dataSnapshot.getChildren()){
-                    Log.e(snap.getKey(),snap.getChildrenCount()+"");
-                }
+                Log.d("CREATION",dataSnapshot.getChildrenCount()+"");
             }
 
             @Override
@@ -87,9 +90,7 @@ public class HomeActivity extends AppCompatActivity
 
             }
         });
-
     }
-
 
     @Override
     public void onBackPressed() {
