@@ -172,6 +172,17 @@
             android:layout_marginRight="30dp"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/userDetails_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="30dp"
+                android:text="Follow"
+                android:background="#1EABEE"
+                android:textColor="#F5F5F5"
+                />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -219,6 +230,14 @@
                     />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/userDetails_btnAddAppointment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="add appointment"
+                />
 
         </LinearLayout>
 
