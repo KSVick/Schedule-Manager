@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_person_black_24dp"
             android:title="Profile" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_search_black_24dp"
+            android:title="Search Username"/>
         <item
             android:id="@+id/nav_tools"
             android:icon="@drawable/ic_menu_manage"
