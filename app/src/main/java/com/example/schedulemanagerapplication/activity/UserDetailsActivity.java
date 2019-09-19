@@ -20,6 +20,7 @@ public class UserDetailsActivity extends AppCompatActivity implements View.OnCli
     private TextView lblUsername,lblGender;
     private EditText txtEmail,txtFullname;
     private ImageView imgSchedule;
+    private Button addAppointmentButton;
     DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -31,6 +32,7 @@ public class UserDetailsActivity extends AppCompatActivity implements View.OnCli
         txtEmail = findViewById(R.id.userDetails_txtEmail);
         txtFullname = findViewById(R.id.userDetails_txtFullname);
         imgSchedule = findViewById(R.id.userDetails_imgSchedule);
+        addAppointmentButton = findViewById(R.id.userDetails_btnAddAppointment);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         lblGender.setText(Helper.searchUser.getGender());
@@ -39,7 +41,8 @@ public class UserDetailsActivity extends AppCompatActivity implements View.OnCli
         txtFullname.setText(Helper.searchUser.getFullname());
 
         imgSchedule.setOnClickListener(this);
-        Toast.makeText(this, Helper.id, Toast.LENGTH_SHORT).show();
+        addAppointmentButton.setOnClickListener(this);
+//        Toast.makeText(this, Helper.id, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -48,6 +51,10 @@ public class UserDetailsActivity extends AppCompatActivity implements View.OnCli
             case R.id.userDetails_imgSchedule:
                 Intent scheduleIntent = new Intent(this, DateActivity.class);
                 startActivity(scheduleIntent);
+                break;
+            case R.id.userDetails_btnAddAppointment:
+                Intent appointment = new Intent(this, AddApointmentActivity.class);
+                startActivity(appointment);
                 break;
         }
     }
