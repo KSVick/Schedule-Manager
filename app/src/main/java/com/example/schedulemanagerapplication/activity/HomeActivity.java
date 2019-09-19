@@ -71,25 +71,10 @@ public class HomeActivity extends AppCompatActivity
 //        lblEmail.setText(Helper.user.getEmail());
 //        lblFullname.setText(Helper.user.getFullname());
 
-        SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
+//        SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
 ////
 ////        Ini Id Usernya : sharedPrefManager.getSPUserKey()
 //        Toast.makeText(this, sharedPrefManager.getSPUserKey(), Toast.LENGTH_SHORT).show();
-
-        Log.d("CREATION",sharedPrefManager.getSPUserKey());
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        Query query = databaseReference.child("-LnWbCzk_G6znCIh0UdG").child("Schedules");
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("CREATION",dataSnapshot.getChildrenCount()+"");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override

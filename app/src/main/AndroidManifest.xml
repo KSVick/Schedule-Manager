@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".activity.UserDetailsActivity"></activity>
         <activity android:name=".activity.SearchUserActivity" />
-        <activity android:name=".activity.ManageUserActivity" />
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.AddApointmentActivity"></activity>
         <activity
