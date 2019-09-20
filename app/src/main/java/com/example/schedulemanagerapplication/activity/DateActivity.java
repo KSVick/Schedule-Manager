@@ -57,8 +57,8 @@ public class DateActivity extends AppCompatActivity implements View.OnClickListe
         scheduleAdapter.notifyDataSetChanged();
     }
 
-    public void refreshScheduleData(){
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void refreshScheduleDatas(){
+        databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -104,7 +104,7 @@ public class DateActivity extends AppCompatActivity implements View.OnClickListe
         sharedPrefManager = new SharedPrefManager(this);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+sharedPrefManager.getSPUserKey()+"/Schedules");
 
-        refreshScheduleData();
+        refreshScheduleDatas();
 
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(false);
@@ -143,7 +143,7 @@ public class DateActivity extends AppCompatActivity implements View.OnClickListe
 
                 textInputEditText.setText("");
                 Toast.makeText(currentContext, "Success", Toast.LENGTH_SHORT).show();
-                refreshScheduleData();
+//                refreshScheduleData();
                 break;
         }
 
