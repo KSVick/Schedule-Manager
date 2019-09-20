@@ -25,7 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DatabaseReference;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener, ManageAppointmentFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener, ManageAppointmentFragment.OnFragmentInteractionListener{
     private TextView lblFullname,lblEmail;
     DatabaseReference databaseReference;
 
@@ -124,11 +124,11 @@ public class HomeActivity extends AppCompatActivity
         }   else if (id == R.id.nav_search) {
             Intent searchUserIntent = new Intent(this,SearchUserActivity.class);
             startActivity(searchUserIntent );
-        } else if (id == R.id.nav_tools) {
-
+        } else if (id == R.id.nav_news) {
+            Intent newsIntent = new Intent(this,NewsActivity.class);
+            startActivity(newsIntent );
         } else if (id == R.id.nav_manage_appointment) {
             replaceFragment(new ManageAppointmentFragment());
-
         } else if (id == R.id.nav_manage_schedule) {
             Intent intent = new Intent(this, DateActivity.class);
             startActivity(intent);
