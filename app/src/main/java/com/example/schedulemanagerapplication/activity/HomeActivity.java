@@ -3,13 +3,11 @@ package com.example.schedulemanagerapplication.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,19 +18,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.schedulemanagerapplication.R;
+import com.example.schedulemanagerapplication.fragment.ManageAppointmentFragment;
 import com.example.schedulemanagerapplication.fragment.TodayAgendaFragment;
-import com.example.schedulemanagerapplication.utility.Helper;
 import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener, ManageAppointmentFragment.OnFragmentInteractionListener {
     private TextView lblFullname,lblEmail;
     DatabaseReference databaseReference;
 
@@ -133,7 +126,8 @@ public class HomeActivity extends AppCompatActivity
             startActivity(searchUserIntent );
         } else if (id == R.id.nav_tools) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_manage_appointment) {
+            replaceFragment(new ManageAppointmentFragment());
 
         } else if (id == R.id.nav_manage_schedule) {
             Intent intent = new Intent(this, DateActivity.class);
