@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="50dp"
+        android:maxWidth="10dp"
+        android:maxHeight="10dp"
+        android:src="@drawable/schedule_manager_logo"
+        />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="80sp"
+        android:text="NEWS"
+        android:textAlignment="center"
+        android:textStyle="italic"
+        android:textColor="#F03C3C"
+        android:textFontWeight="500"
+        android:fontFamily="serif-monospace"
+        />
+</LinearLayout>
