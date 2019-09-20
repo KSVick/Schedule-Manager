@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar spinner =(ProgressBar)findViewById(R.id.progressBar);
         spinner.setVisibility(View.VISIBLE);
 
+
+
 //        CEK UDAH LOGIN ATAU BELUM
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
@@ -58,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
 //                        Intent intent = new Intent(currentContext, AddApointmentActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-//                        intent.putExtra("user_identifier","-LnaCRnm2Gu8FuztzlcL");
                         startActivity(intent);
                     }
                 }

@@ -81,8 +81,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
                 databaseReference.child(appointment.getId()).removeValue(new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-
-
                         Toast.makeText(manageAppointmentFragment.getContext(), "Rejected", Toast.LENGTH_SHORT).show();
 
                     }
