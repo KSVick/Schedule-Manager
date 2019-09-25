@@ -2,6 +2,7 @@ package com.example.schedulemanagerapplication.activity;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,14 +25,22 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.schedulemanagerapplication.R;
 import com.example.schedulemanagerapplication.fragment.ManageAppointmentFragment;
 import com.example.schedulemanagerapplication.fragment.TodayAgendaFragment;
+import com.example.schedulemanagerapplication.model.Appointment;
 import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener, ManageAppointmentFragment.OnFragmentInteractionListener{
     private TextView lblFullname,lblEmail;
-    DatabaseReference databaseReference;
+    private SharedPrefManager sharedPrefManager;
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -40,21 +50,62 @@ public class HomeActivity extends AppCompatActivity
         fragmentTransaction.commit();
     }
 
-    private void addNotification() {
+    private void addNotification(String title, String content, Class context) {
         NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this)
+                new NotificationCompat.Builder(this, "A")
                         .setSmallIcon(R.drawable.schedule_manager_logo)
-                        .setContentTitle("Notifications Example")
-                        .setContentText("This is a test notification");
+                        .setContentTitle(title)
+                        .setContentText(content);
 
-        Intent notificationIntent = new Intent(this, MainActivity.class);
+        Intent notificationIntent = new Intent(this, context);
+        if(context == HomeActivity.class){
+            notificationIntent.putExtra("menuFragment", "ManageAppointment");
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                    |Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        }
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
+
         builder.setContentIntent(contentIntent);
 
         // Add as notification
         NotificationManager manager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
+    }
+
+    public void refreshScheduleData(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+sharedPrefManager.getSPUserKey()+"/Appointments");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.exists()){
+                    addNotification("New Appointment", "You has gain a new appointment", HomeActivity.class);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void countFollowers(){
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = databaseReference.child(sharedPrefManager.getSPUserKey()).child("Followers");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                addNotification("New Follower", "You has gain a new follower", ProfileActivity.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -70,10 +121,16 @@ public class HomeActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+        sharedPrefManager = new SharedPrefManager(this);
+        String menuExtra = getIntent().getStringExtra("menuFragment");
+        if(menuExtra != null && menuExtra.equals("ManageAppointment")){
+            replaceFragment(new ManageAppointmentFragment());
+        }else {
+            replaceFragment(new TodayAgendaFragment());
+        }
 
-        replaceFragment(new TodayAgendaFragment());
-
-        addNotification();
+        refreshScheduleData();
+        countFollowers();
 
         // KO KE ini ak udah pusing banget
         // entah kenapa si nav header homenya gk bisa ke panggil
