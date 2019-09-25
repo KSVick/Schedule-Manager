@@ -162,7 +162,7 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
 
                 String userId = sharedPrefManager.getSPUserKey();
                 String scheduleId = databaseReferenceAppointment.push().getKey();
-                Appointment schedule = new Appointment(description, currentDate, scheduleId, userId);
+                Appointment schedule = new Appointment(description, currentDate, scheduleId, Helper.user);
                 databaseReferenceAppointment.child(scheduleId).setValue(schedule);
 
                 textInputEditText.setText("");

@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.schedulemanagerapplication.R;
 import com.example.schedulemanagerapplication.model.Schedule;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder>{
     private Context context;
     private ArrayList<Schedule> schedules;
+    SimpleDateFormat actionDateFormat = new SimpleDateFormat("dd MMMM yyyy");
 
     public AgendaAdapter(Context context){
         this.context = context;
@@ -37,7 +39,7 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtDate.setText(schedules.get(position).getDate().toString());
+        holder.txtDate.setText(actionDateFormat.format(schedules.get(position).getDate()));
         holder.txtDescription.setText(schedules.get(position).getDescription());
     }
 

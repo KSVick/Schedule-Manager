@@ -172,17 +172,31 @@
             android:layout_marginRight="30dp"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/userDetails_btnFollow"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginBottom="30dp"
-                android:text="Follow"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#1EABEE"
-                />
+                android:orientation="horizontal"
+                >
+                <Button
+                    android:id="@+id/userDetails_btnFollow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#1EABEE"
+                    android:text="Follow"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/userDetails_btnAddAppointment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="add appointment"
+                    />
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -232,13 +246,7 @@
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/userDetails_btnAddAppointment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="add appointment"
-                />
+
 
         </LinearLayout>
 

@@ -63,6 +63,28 @@ public class UserDetailsActivity extends AppCompatActivity implements View.OnCli
 //        Toast.makeText(this, Helper.id, Toast.LENGTH_SHORT).show();
         countFollowing();
         countFollowers();
+        checkfollow();
+    }
+
+    public void checkfollow(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = databaseReference.child(sharedPrefManager.getSPUserKey()).child("Following").child(Helper.id);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    btnFollow.setText("Follow");
+                }
+                else{
+                    btnFollow.setText("Unfollow");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void countFollowing(){

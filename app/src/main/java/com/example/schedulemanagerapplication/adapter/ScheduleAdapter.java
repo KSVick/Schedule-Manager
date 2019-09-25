@@ -65,7 +65,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                 databaseReference.child(master.get(pos).getId()).removeValue(new DatabaseReference.CompletionListener() {
                     @Override
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                        context.refreshScheduleData();
+//                        context.refreshScheduleData();
                     }
                 });
             }

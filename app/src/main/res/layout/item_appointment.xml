@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="1dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        >
+
+        <TextView
+            android:id="@+id/item_appointment_txtname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="a"
+            />
+
+        <TextView
+            android:id="@+id/item_appointment_txtdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="b"
+            />
+        <TextView
+            android:id="@+id/item_appointment_txtdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="c"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            >
+            <Button
+                android:id="@+id/item_appointment_btnReject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:backgroundTint="#D62525"
+                android:text="Reject"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/item_appointment_btnAccept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:backgroundTint="#28B602"
+                android:textStyle="bold"
+                android:text="Accept"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

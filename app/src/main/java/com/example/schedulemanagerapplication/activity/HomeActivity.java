@@ -1,18 +1,19 @@
 package com.example.schedulemanagerapplication.activity;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -20,19 +21,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.schedulemanagerapplication.R;
+import com.example.schedulemanagerapplication.fragment.ManageAppointmentFragment;
 import com.example.schedulemanagerapplication.fragment.TodayAgendaFragment;
-import com.example.schedulemanagerapplication.utility.Helper;
 import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener, ManageAppointmentFragment.OnFragmentInteractionListener{
     private TextView lblFullname,lblEmail;
     DatabaseReference databaseReference;
 
@@ -42,6 +38,23 @@ public class HomeActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.home_layout_container, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    private void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.schedule_manager_logo)
+                        .setContentTitle("Notifications Example")
+                        .setContentText("This is a test notification");
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 
     @Override
@@ -60,6 +73,7 @@ public class HomeActivity extends AppCompatActivity
 
         replaceFragment(new TodayAgendaFragment());
 
+        addNotification();
 
         // KO KE ini ak udah pusing banget
         // entah kenapa si nav header homenya gk bisa ke panggil
@@ -131,10 +145,11 @@ public class HomeActivity extends AppCompatActivity
         }   else if (id == R.id.nav_search) {
             Intent searchUserIntent = new Intent(this,SearchUserActivity.class);
             startActivity(searchUserIntent );
-        } else if (id == R.id.nav_tools) {
-
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_news) {
+            Intent newsIntent = new Intent(this,NewsActivity.class);
+            startActivity(newsIntent );
+        } else if (id == R.id.nav_manage_appointment) {
+            replaceFragment(new ManageAppointmentFragment());
         } else if (id == R.id.nav_manage_schedule) {
             Intent intent = new Intent(this, DateActivity.class);
             startActivity(intent);

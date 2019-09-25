@@ -25,7 +25,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
-    private TextView lblUsername,lblGender,lblError;
+    private TextView lblUsername,lblGender,lblError,lblFollower,lblFollowing;
     private EditText txtEmail,txtFullname;
     private ImageView imgSchedule;
     DatabaseReference databaseReference;
@@ -37,6 +37,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         lblGender = findViewById(R.id.profile_lblGender);
         lblUsername = findViewById(R.id.profile_lblUsername);
+        lblFollowing =  findViewById(R.id.profile_lblFollowing);
+        lblFollower =  findViewById(R.id.profile_lblFollowers);
         txtEmail = findViewById(R.id.profile_txtEmail);
         txtFullname = findViewById(R.id.profile_txtFullname);
         lblError = findViewById(R.id.profile_lblError);
@@ -57,6 +59,41 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 //        Ini Id Usernya : sharedPrefManager.getSPUserKey()
 //        Toast.makeText(this, sharedPrefManager.getSPUserKey(), Toast.LENGTH_SHORT).show();
         id = sharedPrefManager.getSPUserKey();
+        countFollowers();
+        countFollowing();
+    }
+
+    public void countFollowing(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = databaseReference.child(id).child("Following");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                Log.d("CREATION",dataSnapshot.getChildrenCount()+"");
+                lblFollowing.setText(dataSnapshot.getChildrenCount()+"");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void countFollowers(){
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        Query query = databaseReference.child(id).child("Followers");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                lblFollower.setText(dataSnapshot.getChildrenCount()+"");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
