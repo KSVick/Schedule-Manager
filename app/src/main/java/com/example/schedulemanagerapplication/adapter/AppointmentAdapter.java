@@ -65,6 +65,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
                     public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                         String scheduleId = databaseReferenceSchedule.push().getKey();
                         Schedule schedule = new Schedule(appointment.getDescription(), appointment.getDate(), scheduleId);
+                        schedule.setCollaborator(appointment.getFromUser());
                         databaseReferenceSchedule.child(scheduleId).setValue(schedule);
 
                         Toast.makeText(manageAppointmentFragment.getContext(), "Accepted", Toast.LENGTH_SHORT).show();

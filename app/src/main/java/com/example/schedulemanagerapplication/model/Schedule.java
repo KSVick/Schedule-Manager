@@ -6,6 +6,7 @@ public class Schedule {
     private String description;
     private Date date;
     private String id;
+    private User collaborator;
 
     public String getDescription() {
         return description;
@@ -39,5 +40,13 @@ public class Schedule {
 
     public Schedule(){
 
+    }
+
+    public void setCollaborator(User collaborator) {
+        this.collaborator = collaborator;
+    }
+
+    public User getCollaborator() {
+        return collaborator;
     }
 }

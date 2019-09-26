@@ -41,6 +41,9 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.txtDate.setText(actionDateFormat.format(schedules.get(position).getDate()));
         holder.txtDescription.setText(schedules.get(position).getDescription());
+        if(schedules.get(position).getCollaborator() != null){
+            holder.txtCollaborator.setText(schedules.get(position).getCollaborator().getFullname());
+        }
     }
 
     @Override
@@ -49,13 +52,14 @@ public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder
     }
 
     protected class ViewHolder extends RecyclerView.ViewHolder{
-        TextView txtDate, txtDescription;
+        TextView txtDate, txtDescription, txtCollaborator;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtDate = itemView.findViewById(R.id.item_agenda_txtDate);
             txtDescription = itemView.findViewById(R.id.item_agenda_txtDescription);
+            txtCollaborator = itemView.findViewById(R.id.item_agenda_txtCollaborator);
         }
     }
 
