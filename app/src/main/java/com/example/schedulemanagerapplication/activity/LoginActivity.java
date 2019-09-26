@@ -144,8 +144,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FirebaseUser user = mAuth.getCurrentUser();
                             Log.d(TAG, "signInWithCredential:success : "+user.getEmail());
                             updateCurrentUser(user);
-//                            Toast.makeText(current, user.getEmail(),
-//                                    Toast.LENGTH_SHORT).show();
                             updateUI(user);
                             signOut();
                             LoginManager.getInstance().logOut();
