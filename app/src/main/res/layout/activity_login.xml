@@ -1,95 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LoginActivity"
-    android:orientation="vertical"
     android:gravity="center"
+    android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    >
+    tools:context=".activity.LoginActivity">
 
     <ImageView
+        android:id="@+id/imageView4"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="50dp"
         android:maxWidth="10dp"
         android:maxHeight="10dp"
         android:src="@drawable/schedule_manager_logo"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/txtUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:drawableLeft="@drawable/ic_person_black_24dp"
         android:drawablePadding="5dp"
         android:hint="Username"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        tools:layout_editor_absoluteX="44dp" />
+
     <EditText
         android:id="@+id/txtPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:drawablePadding="5dp"
-        android:inputType="textPassword"
         android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:drawablePadding="5dp"
         android:hint="Password"
-        />
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername"
+        tools:layout_editor_absoluteX="30dp" />
+
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:background="#EC4B0E"
         android:text="Login"
         android:textColor="#FFFFFF"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+        tools:layout_editor_absoluteX="20dp" />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
-        >
+<!--    <LinearLayout-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:orientation="horizontal">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Not Registerd Yet?"
-            />
-        <TextView
-            android:id="@+id/lblRegister"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
-            android:text="Click Here!"
-            android:textColor="#EC4B0E"
-            />
+<!--    </LinearLayout>-->
 
-    </LinearLayout>
     <TextView
         android:id="@+id/lblError"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:text=" "
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
         android:textColor="#FF0000"
-        android:textStyle="bold"
         android:textSize="18sp"
-        />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginFacebookButton" />
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/google_button"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:layout_margin="10dp"
-        android:layout_marginLeft="5dp"
         android:text="Sign in with Google"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        tools:layout_editor_absoluteX="20dp" />
 
-</LinearLayout>
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/loginFacebookButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/google_button"
+        android:text="Facebook Login"
+    />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblError"
+        tools:layout_editor_absoluteX="20dp">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not Registerd Yet?"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="30dp" />
+
+        <TextView
+            android:id="@+id/lblRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="Click Here!"
+            android:textColor="#EC4B0E"
+            app:layout_constraintTop_toBottomOf="@+id/lblError"
+            tools:layout_editor_absoluteX="175dp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,4 +16,7 @@
     <string name="menu_share">Manage Appointment</string>
     <string name="menu_send">Manage Schedule</string>
 
+    <string name="facebook_app_id">2666118073419091</string>
+    <string name="fb_login_protocol_scheme">fb2666118073419091</string>
+
 </resources>
