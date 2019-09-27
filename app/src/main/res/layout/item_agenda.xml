@@ -6,27 +6,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="1dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/item_agenda_txtDate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/item_agenda_txtDescription"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/item_agenda_txtLocation"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/item_agenda_txtCollaborator"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp" />
 
     </LinearLayout>
 

@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:shape="rectangle"
-        android:background="@drawable/gradient"
         >
 
         <RelativeLayout
@@ -213,7 +212,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Email"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#000000"
                     android:editable="false"
                     />
 
@@ -238,7 +237,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fullname"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#000000"
                     android:editable="false"
                     />
 
