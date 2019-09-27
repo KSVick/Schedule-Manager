@@ -203,7 +203,7 @@ public class HomeActivity extends AppCompatActivity
             Intent searchUserIntent = new Intent(this,SearchUserActivity.class);
             startActivity(searchUserIntent );
         } else if (id == R.id.nav_news) {
-            Intent newsIntent = new Intent(this,NewsActivity.class);
+            Intent newsIntent = new Intent(this,NewsAPIActivity.class);
             startActivity(newsIntent );
         } else if (id == R.id.nav_manage_appointment) {
             replaceFragment(new ManageAppointmentFragment());

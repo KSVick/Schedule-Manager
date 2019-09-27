@@ -10,4 +10,8 @@
     <color name="followingBg">#49BEFF</color>
     <color name="following">#1EABEE</color>
     <color name="unfollow">#FC4838</color>
+
+    <color name="colorBackground">#f9f9fa</color>
+    <color name="colorTextSubtitle">#4e4e4e</color>
+    <color name="colorTextTitle">#262626</color>
 </resources>
