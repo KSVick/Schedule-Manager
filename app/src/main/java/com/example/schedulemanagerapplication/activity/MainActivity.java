@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+//                        Intent intent = new Intent(currentContext, AddApointmentActivity.class);
+
+
+
 //        CEK UDAH LOGIN ATAU BELUM
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");

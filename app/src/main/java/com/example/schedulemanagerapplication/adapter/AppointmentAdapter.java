@@ -66,6 +66,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
                         String scheduleId = databaseReferenceSchedule.push().getKey();
                         Schedule schedule = new Schedule(appointment.getDescription(), appointment.getDate(), scheduleId);
                         schedule.setCollaborator(appointment.getFromUser());
+                        schedule.setLocation(appointment.getLocation());
                         databaseReferenceSchedule.child(scheduleId).setValue(schedule);
 
                         Toast.makeText(manageAppointmentFragment.getContext(), "Accepted", Toast.LENGTH_SHORT).show();
@@ -88,6 +89,8 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
                 });
             }
         });
+        if(appointments.get(position).getLocation() != null)
+            holder.txtLocation.setText(appointments.get(position).getLocation());
 
     }
 
@@ -98,8 +101,9 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
 
 
     protected class ViewHolder extends RecyclerView.ViewHolder{
-        TextView txtDate, txtDescription, txtUser;
+        TextView txtDate, txtDescription, txtUser, txtLocation;
         Button btnAccept, btnReject;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -109,6 +113,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
             txtUser = itemView.findViewById(R.id.item_appointment_txtname);
             btnAccept = itemView.findViewById(R.id.item_appointment_btnAccept);
             btnReject = itemView.findViewById(R.id.item_appointment_btnReject);
+            txtLocation = itemView.findViewById(R.id.item_appointment_txtLocation);
         }
     }
 }

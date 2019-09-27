@@ -54,6 +54,13 @@
             android:layout_height="wrap_content" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/activity_add_appointment_pick_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Pick Location" />
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/activity_add_apointment_btnInsertSchedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

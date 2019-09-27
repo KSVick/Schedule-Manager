@@ -51,13 +51,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         return new ViewHolder(view);
     }
 
-
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         holder.txtDate.setText(schedules.get(position).getDate().toString());
         holder.txtDescription.setText(schedules.get(position).getDescription());
-
+        if(schedules.get(position).getLocation() != null)
+            holder.txtLocation.setText(schedules.get(position).getLocation());
         holder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,7 +78,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
 
     protected class ViewHolder extends RecyclerView.ViewHolder{
-        TextView txtDate, txtDescription;
+        TextView txtDate, txtDescription, txtLocation;
         Button btnDelete;
 
         public ViewHolder(@NonNull View itemView) {
@@ -88,6 +87,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             txtDate = itemView.findViewById(R.id.item_schedule_txtDate);
             txtDescription = itemView.findViewById(R.id.item_schedule_txtDescription);
             btnDelete = itemView.findViewById(R.id.item_schedule_buttonDelete);
+            txtLocation = itemView.findViewById(R.id.item_schedule_txtLocation);
         }
     }
 }

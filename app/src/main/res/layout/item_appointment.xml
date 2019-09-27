@@ -16,21 +16,28 @@
             android:id="@+id/item_appointment_txtname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="a"
+            android:text=""
             />
 
         <TextView
             android:id="@+id/item_appointment_txtdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="b"
+            android:text=""
             />
         <TextView
             android:id="@+id/item_appointment_txtdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="c"
+            android:text=""
             />
+        <TextView
+            android:id="@+id/item_appointment_txtLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

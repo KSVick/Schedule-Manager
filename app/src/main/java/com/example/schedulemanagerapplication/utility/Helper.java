@@ -6,4 +6,5 @@ public class Helper {
     public static User user;
     public static User searchUser;
     public static String id;
+    public static String currentLocation = "";
 }
