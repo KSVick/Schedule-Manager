@@ -147,7 +147,8 @@
                     android:text="following"
                     android:textAllCaps="true"
                     android:textColor="#FFFFFF"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    />
 
             </LinearLayout>
 
