@@ -7,6 +7,52 @@
     tools:context=".activity.AddApointmentActivity">
 
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toTopOf="@+id/activity_add_appointment_compactcalendar_view"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="35dp"
+            android:backgroundTint="@color/green"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" You " />
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="35dp"
+            android:backgroundTint="@color/blue"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Her/his " />
+
+        <Button
+            android:layout_width="25dp"
+            android:layout_height="35dp"
+            android:backgroundTint="@color/yellow"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" Both " />
+    </LinearLayout>
+
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         android:id="@+id/activity_add_appointment_compactcalendar_view"
         android:layout_width="fill_parent"
@@ -58,7 +104,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Pick Location" />
+            android:text="Pick Location"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/activity_add_apointment_btnInsertSchedule"
