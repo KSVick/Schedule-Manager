@@ -6,8 +6,8 @@
 
     <color name="gender">#2F7092</color>
     <color name="headings">#3797CF</color>
-    <color name="followersBg">#65DCE5</color>
-    <color name="followingBg">#49BEFF</color>
+    <color name="followersBg">#D82929</color>
+    <color name="followingBg">#D82929</color>
     <color name="following">#1EABEE</color>
     <color name="unfollow">#FC4838</color>
 </resources>

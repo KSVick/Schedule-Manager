@@ -123,7 +123,6 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         TextView txtDate, txtDescription, txtLocation;
         Button btnDelete, btnUpdate;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 

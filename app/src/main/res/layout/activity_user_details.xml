@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:shape="rectangle"
-        android:background="@drawable/gradient"
         >
 
         <RelativeLayout
@@ -161,7 +160,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/linlay1"
-        android:background="#E9F5F1"
         >
 
         <LinearLayout
@@ -183,8 +181,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:backgroundTint="#1EABEE"
-                    android:text="Follow"
+                    android:text="FOLLOW"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
 
@@ -193,7 +190,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="add appointment"
+                    android:text="VIEW SCHEDULE"
                     />
             </RelativeLayout>
 
