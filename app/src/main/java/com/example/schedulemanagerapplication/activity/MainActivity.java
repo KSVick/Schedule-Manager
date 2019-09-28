@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
         spinner.setVisibility(View.VISIBLE);
 
 
-
-
 //                        Intent intent = new Intent(currentContext, AddApointmentActivity.class);
 
 
