@@ -1,6 +1,7 @@
 package com.example.schedulemanagerapplication.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -8,14 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.schedulemanagerapplication.R;
+import com.example.schedulemanagerapplication.activity.NewsActivity;
 import com.example.schedulemanagerapplication.adapter.AgendaAdapter;
+import com.example.schedulemanagerapplication.adapter.AgendaViewPagerAdapter;
 import com.example.schedulemanagerapplication.adapter.ScheduleAdapter;
+import com.example.schedulemanagerapplication.adapter.ViewPagerAdapter;
 import com.example.schedulemanagerapplication.model.Schedule;
 import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +51,7 @@ public class TodayAgendaFragment extends Fragment {
     private DatabaseReference databaseReference;
     private SharedPrefManager sharedPrefManager;
     private AgendaAdapter agendaAdapter;
+    private ViewPager viewPager;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -127,6 +135,8 @@ public class TodayAgendaFragment extends Fragment {
         });
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -136,8 +146,23 @@ public class TodayAgendaFragment extends Fragment {
         sharedPrefManager = new SharedPrefManager(root.getContext());
         databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+sharedPrefManager.getSPUserKey()+"/Schedules");
         agendaAdapter = new AgendaAdapter(root.getContext());
+        Button button = root.findViewById(R.id.fragment_today_agenda_detailBtn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), NewsActivity.class);
+                startActivity(intent);
+            }
+        });
+
         recyclerView.setAdapter(agendaAdapter);
         refreshScheduleData();
+
+//        viewPager = root.findViewById(R.id.news_viewPager);
+
+//        AgendaViewPagerAdapter viewPagerAdapter = new AgendaViewPagerAdapter();
+
+//        viewPager.setAdapter(buildAdapter());
 
         // Inflate the layout for this fragment
         return root;
@@ -180,5 +205,8 @@ public class TodayAgendaFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+    private PagerAdapter buildAdapter() {
+        return(new AgendaViewPagerAdapter(getContext(), getChildFragmentManager()));
     }
 }
