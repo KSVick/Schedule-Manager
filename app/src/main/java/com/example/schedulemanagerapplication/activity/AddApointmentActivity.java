@@ -41,7 +41,7 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
     private CompactCalendarView compactCalendarView;
     private ArrayList<Schedule> schedules = new ArrayList<>();
     private ArrayList<Schedule> myschedules = new ArrayList<>();
-    private Button btnCompare, btnInsert;
+    private Button btnCompare, btnInsert, btnPickLocation;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat actionDateFormat = new SimpleDateFormat("MMMM yyyy");
 
@@ -115,6 +115,7 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
 
         btnCompare = findViewById(R.id.add_apointment_button_compare_schedule);
         btnInsert = findViewById(R.id.activity_add_apointment_btnInsertSchedule);
+        btnPickLocation = findViewById(R.id.activity_add_appointment_pick_location);
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+Helper.id+"/Schedules");
         databaseReferenceAppointment = FirebaseDatabase.getInstance().getReference("Users/"+Helper.id+"/Appointments");
@@ -132,6 +133,7 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
 
         btnCompare.setOnClickListener(this);
         btnInsert.setOnClickListener(this);
+        btnPickLocation.setOnClickListener(this);
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
@@ -163,6 +165,7 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
                 String userId = sharedPrefManager.getSPUserKey();
                 String scheduleId = databaseReferenceAppointment.push().getKey();
                 Appointment schedule = new Appointment(description, currentDate, scheduleId, Helper.user);
+                schedule.setLocation(Helper.currentLocation);
                 databaseReferenceAppointment.child(scheduleId).setValue(schedule);
 
                 textInputEditText.setText("");
@@ -171,6 +174,9 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
 
                 refreshScheduleData();
                 btnCompare.setEnabled(true);
+                break;
+            case R.id.activity_add_appointment_pick_location:
+                startActivity(new Intent(this, MapsActivity.class));
                 break;
         }
     }

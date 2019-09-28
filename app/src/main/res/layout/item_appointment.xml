@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="1dp"
+        android:padding="5dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         >
@@ -16,21 +16,32 @@
             android:id="@+id/item_appointment_txtname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="a"
+            android:text=""
+            android:textSize="25sp"
             />
 
         <TextView
             android:id="@+id/item_appointment_txtdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="b"
+            android:text=""
+            android:textSize="25sp"
             />
         <TextView
             android:id="@+id/item_appointment_txtdescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="c"
+            android:text=""
+            android:textSize="25sp"
             />
+        <TextView
+            android:id="@+id/item_appointment_txtLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textSize="25sp"
+            />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

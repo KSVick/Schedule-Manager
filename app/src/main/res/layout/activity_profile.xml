@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:shape="rectangle"
-        android:background="@drawable/gradient"
+
         >
 
         <RelativeLayout
@@ -147,7 +147,8 @@
                     android:text="following"
                     android:textAllCaps="true"
                     android:textColor="#FFFFFF"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    />
 
             </LinearLayout>
 
@@ -160,7 +161,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/linlay1"
-        android:background="#E9F5F1"
+
         >
 
         <LinearLayout
@@ -188,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Email"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     android:editable="false"
                     />
 
@@ -213,7 +214,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Fullname"
-                    android:textColor="#000000"
+                    android:textColor="#FFFFFF"
                     />
 
             </LinearLayout>

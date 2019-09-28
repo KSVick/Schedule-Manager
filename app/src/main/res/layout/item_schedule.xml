@@ -6,24 +6,52 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="1dp">
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/item_schedule_txtDate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/item_schedule_txtDescription"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/item_schedule_buttonDelete"
+            android:layout_height="wrap_content"
+            android:textSize="25sp" />
+        <TextView
+            android:id="@+id/item_schedule_txtLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Delete" />
+            android:textSize="25sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            >
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item_schedule_buttonUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="25dp"
+                android:text="Update" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item_schedule_buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="25dp"
+                android:text="Delete" />
+        </RelativeLayout>
+
     </LinearLayout>
 
 </com.google.android.material.card.MaterialCardView>

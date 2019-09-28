@@ -6,12 +6,15 @@
 
     <color name="gender">#2F7092</color>
     <color name="headings">#3797CF</color>
-    <color name="followersBg">#65DCE5</color>
-    <color name="followingBg">#49BEFF</color>
+    <color name="followersBg">#D82929</color>
+    <color name="followingBg">#D82929</color>
     <color name="following">#1EABEE</color>
     <color name="unfollow">#FC4838</color>
 
     <color name="colorBackground">#f9f9fa</color>
     <color name="colorTextSubtitle">#4e4e4e</color>
     <color name="colorTextTitle">#262626</color>
+    <color name="blue">#0800FF</color>
+    <color name="yellow">#FFF328</color>
+    <color name="green">#93FC38</color>
 </resources>
