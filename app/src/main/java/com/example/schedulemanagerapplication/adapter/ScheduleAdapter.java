@@ -3,6 +3,7 @@ package com.example.schedulemanagerapplication.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.schedulemanagerapplication.R;
 import com.example.schedulemanagerapplication.activity.DateActivity;
+import com.example.schedulemanagerapplication.activity.HomeActivity;
+import com.example.schedulemanagerapplication.activity.MapsActivity;
 import com.example.schedulemanagerapplication.model.Schedule;
 import com.example.schedulemanagerapplication.utility.Converter;
+import com.example.schedulemanagerapplication.utility.Helper;
 import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -111,6 +115,21 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
                 builder.show();
             }
         });
+
+        holder.btnUpdateLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int pos = Converter.findPositionOfSchedule(master, schedules.get(position));
+                Schedule newSchedule =master.get(pos);
+//                databaseReference.child(master.get(pos).getId()).setValue(newSchedule);
+                Helper.id_for_update = master.get(pos).getId();
+                Helper.newSchedule = newSchedule;
+                Intent homeIntent = new Intent(context, MapsActivity.class);
+               context.startActivity(homeIntent);
+            }
+        });
+
+
     }
 
     @Override
@@ -121,7 +140,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     protected class ViewHolder extends RecyclerView.ViewHolder{
         TextView txtDate, txtDescription, txtLocation;
-        Button btnDelete, btnUpdate;
+        Button btnDelete, btnUpdate, btnUpdateLocation;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -131,6 +150,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             btnDelete = itemView.findViewById(R.id.item_schedule_buttonDelete);
             txtLocation = itemView.findViewById(R.id.item_schedule_txtLocation);
             btnUpdate = itemView.findViewById(R.id.item_schedule_buttonUpdate);
+            btnUpdateLocation = itemView.findViewById(R.id.item_schedule_buttonUpdate_location);
         }
     }
 }

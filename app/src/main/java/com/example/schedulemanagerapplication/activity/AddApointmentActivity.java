@@ -44,6 +44,7 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
     private Button btnCompare, btnInsert, btnPickLocation;
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     SimpleDateFormat actionDateFormat = new SimpleDateFormat("MMMM yyyy");
+    private boolean compare = true;
 
     public void refreshScheduleData(){
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -67,6 +68,7 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
 
             }
         });
+        compare = true;
     }
 
     public void getMyScheduleData(){
@@ -101,6 +103,7 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
 
             }
         });
+        compare = false;
     }
 
     @Override
@@ -155,8 +158,13 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.add_apointment_button_compare_schedule:
-                getMyScheduleData();
-                btnCompare.setEnabled(false);
+                if(compare){
+                    getMyScheduleData();
+                }else{
+                    refreshScheduleData();
+                }
+
+//                btnCompare.setEnabled(false);
                 break;
             case R.id.activity_add_apointment_btnInsertSchedule:
                 TextInputEditText textInputEditText = findViewById(R.id.activity_add_apointment_txtInputDescription);

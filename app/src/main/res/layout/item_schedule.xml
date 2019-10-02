@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="8dp">
 
     <LinearLayout
@@ -12,27 +14,48 @@
             android:id="@+id/item_schedule_txtDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="25sp"/>
+            android:textSize="25sp" />
 
         <TextView
             android:id="@+id/item_schedule_txtDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp" />
+
         <TextView
             android:id="@+id/item_schedule_txtLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp" />
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:orientation="horizontal"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            >
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item_schedule_buttonUpdate_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/item_schedule_buttonDelete"
+                android:layout_gravity="center"
+                android:text="Update Location"
+                app:layout_constraintEnd_toStartOf="@+id/item_schedule_buttonDelete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/item_schedule_buttonDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="Delete"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/item_schedule_buttonUpdate"
@@ -40,17 +63,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
-                android:layout_marginStart="25dp"
-                android:text="Update" />
+                android:text="Update Description"
+                app:layout_constraintEnd_toStartOf="@+id/item_schedule_buttonDelete"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/item_schedule_buttonUpdate_location" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/item_schedule_buttonDelete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="25dp"
-                android:text="Delete" />
-        </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.example.schedulemanagerapplication.R;
 import com.example.schedulemanagerapplication.utility.Helper;
+import com.example.schedulemanagerapplication.utility.SharedPrefManager;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -53,6 +54,8 @@ import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Arrays;
 import java.util.List;
@@ -368,6 +371,19 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     .snippet(markerSnippet));
             Toast.makeText(getBaseContext(), mLikelyPlaceNames[position].toString(), Toast.LENGTH_SHORT).show();
             Helper.currentLocation = mLikelyPlaceNames[position].toString();
+
+            if(Helper.newSchedule != null){
+                DatabaseReference databaseReference;
+                SharedPrefManager sharedPrefManager;
+                sharedPrefManager = new SharedPrefManager(getBaseContext());
+                databaseReference = FirebaseDatabase.getInstance().getReference("Users/"+sharedPrefManager.getSPUserKey()+"/Schedules");
+
+                Helper.newSchedule.setLocation(Helper.currentLocation);
+                databaseReference.child(Helper.id_for_update).setValue(Helper.newSchedule);
+                Helper.newSchedule = null;
+                Helper.id_for_update = "";
+            }
+
             finish();
 
             // Position the map's camera at the location of the marker.
