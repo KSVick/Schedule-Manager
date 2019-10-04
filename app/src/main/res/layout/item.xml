@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
@@ -17,6 +17,7 @@
         >
         
         <RelativeLayout
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
@@ -53,8 +54,8 @@
                 android:layout_marginRight="160dp"
                 android:text="Author"
                 android:gravity="bottom"
-                android:layout_alignLeft="@id/title"
-                android:layout_alignStart="@id/title"
+                android:layout_alignLeft="@id/titles"
+                android:layout_alignStart="@id/titles"
                 android:layout_alignRight="@+id/layoutDate"
                 android:layout_alignTop="@+id/layoutDate"
                 android:layout_alignEnd="@+id/layoutDate"
@@ -63,7 +64,7 @@
                 android:id="@+id/layoutDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/item_img"
+                android:layout_below="@id/item_img"
                 android:background="@drawable/round_white"
                 android:padding="5dp"
                 android:layout_alignParentRight="true"
@@ -90,7 +91,7 @@
             </FrameLayout>
 
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/titles"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-light"
@@ -108,7 +109,7 @@
                 android:id="@+id/desc"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_below="@id/title"
+                android:layout_below="@id/titles"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginTop="5dp"
@@ -118,7 +119,7 @@
                 android:id="@+id/source"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_below="@+id/desc"
+                android:layout_below="@id/desc"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="10dp"
@@ -135,7 +136,7 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
-                android:layout_below="@+id/desc"
+                android:layout_below="@id/desc"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_toRightOf="@id/source"

@@ -5,7 +5,11 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.Toast;
 
@@ -39,7 +43,7 @@ public class NewsAPIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_api);
 
         recyclerView = findViewById(R.id.recyclerView);
-        layoutManager = new LinearLayoutManager(NewsAPIActivity.this);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setNestedScrollingEnabled(false);
@@ -65,9 +69,12 @@ public class NewsAPIActivity extends AppCompatActivity {
                     }
 
                     articles = response.body().getArticle();
+
                     adapter = new NewsAdapter(articles, NewsAPIActivity.this);
                     recyclerView.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+
+                    initListener();
                 }
                 else{
                     Toast.makeText(NewsAPIActivity.this, "Empty Result!", Toast.LENGTH_SHORT).show();
@@ -80,4 +87,27 @@ public class NewsAPIActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void initListener(){
+        adapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+//                Intent intent = new Intent(NewsAPIActivity.this,NewsDetailActivity.class);
+//
+                Article article = articles.get(position);
+                Intent intentUrl = new Intent("android.intent.action.VIEW", Uri.parse(article.getUrl()));
+                startActivity(intentUrl);
+//                intent.putExtra("url",article.getUrl());
+//                intent.putExtra("title",article.getTitle());
+//                intent.putExtra("img",article.getUrlToImage());
+//                intent.putExtra("date",article.getPublishedAt());
+//                intent.putExtra("source",article.getSource().getName());
+//                intent.putExtra("author",article.getAuthor());
+//
+//                startActivity(intent);
+            }
+        });
+    }
+
+
 }

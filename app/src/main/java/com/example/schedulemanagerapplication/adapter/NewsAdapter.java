@@ -2,6 +2,7 @@ package com.example.schedulemanagerapplication.adapter;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,33 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
     public NewsAdapter(List<Article> articles, Context context) {
         this.articles = articles;
         this.context = context;
+    }
+
+    public class  MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        TextView title,desc,author,published_ad,source,time;
+        ImageView imageView;
+        ProgressBar progressBar;
+        OnItemClickListener onItemClickListener;
+        public MyViewHolder(View itemView, OnItemClickListener onItemClickListener) {
+            super(itemView);
+
+            itemView.setOnClickListener(this);
+            title = itemView.findViewById(R.id.titles);
+            desc = itemView.findViewById(R.id.desc);
+            author = itemView.findViewById(R.id.author);
+            published_ad = itemView.findViewById(R.id.publishedAt);
+            source = itemView.findViewById(R.id.source);
+            time = itemView.findViewById(R.id.time);
+            imageView = itemView.findViewById(R.id.item_img);
+            progressBar = itemView.findViewById(R.id.progress_load_photo);
+
+            this.onItemClickListener = onItemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            onItemClickListener.onItemClick(view, getAdapterPosition());
+        }
     }
 
     @NonNull
@@ -82,6 +110,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
+//        Log.d("CREATION",articles.size()+"");
         return articles.size();
     }
 
@@ -91,32 +120,5 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyViewHolder> 
 
     public interface OnItemClickListener{
         void onItemClick(View view, int position);
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView title,desc,author,published_ad,source,time;
-        ImageView imageView;
-        ProgressBar progressBar;
-        OnItemClickListener onItemClickListener;
-        public MyViewHolder(@NonNull View itemView, OnItemClickListener onItemClickListener) {
-            super(itemView);
-
-            itemView.setOnClickListener(this);
-            title = itemView.findViewById(R.id.title);
-            desc = itemView.findViewById(R.id.desc);
-            author = itemView.findViewById(R.id.author);
-            published_ad = itemView.findViewById(R.id.publishedAt);
-            source = itemView.findViewById(R.id.source);
-            time = itemView.findViewById(R.id.time);
-            imageView = itemView.findViewById(R.id.item_img);
-            progressBar = itemView.findViewById(R.id.progress_load_photo);
-
-            this.onItemClickListener = onItemClickListener;
-        }
-
-        @Override
-        public void onClick(View view) {
-            onItemClickListener.onItemClick(view, getAdapterPosition());
-        }
     }
 }

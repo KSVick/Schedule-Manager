@@ -14,19 +14,25 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
+
     public static final String BASE_URL = "https://newsapi.org/v2/";
     public static Retrofit retrofit;
 
     public static Retrofit getApiClient(){
 
-        if(retrofit == null){
-            retrofit = new Retrofit.Builder().baseUrl(BASE_URL).client(getUnsafeOkHttpClient().build()).addConverterFactory(GsonConverterFactory.create()).build();
-        }
+        if (retrofit==null){
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .client(getUnsafeOkHttpClient().build())
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
 
+        }
         return retrofit;
     }
 
-    public static OkHttpClient.Builder getUnsafeOkHttpClient(){
+    public static OkHttpClient.Builder getUnsafeOkHttpClient() {
+
         try {
             // Create a trust manager that does not validate certificate chains
             final TrustManager[] trustAllCerts = new TrustManager[]{
@@ -66,4 +72,5 @@ public class ApiClient {
             throw new RuntimeException(e);
         }
     }
+
 }
