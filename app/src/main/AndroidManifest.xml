@@ -17,11 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.NewsDetailActivity"
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.NewsDetailActivity"
             android:theme="@style/AppTheme.NoActionBar"
             ></activity>
-        <activity android:name=".activity.NewsAPIActivity" />
-        <activity android:name=".activity.NewsActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.NewsAPIActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.NewsActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -35,22 +35,22 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.MapsActivity"
+            android:name="edu.bluejack18_2.schedulemanagerapplication.activity.MapsActivity"
             android:label="@string/title_activity_maps"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.UserDetailsActivity" />
-        <activity android:name=".activity.SearchUserActivity" />
-        <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.AddApointmentActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.UserDetailsActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.SearchUserActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.ProfileActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.AddApointmentActivity" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="edu.bluejack18_2.schedulemanagerapplication.activity.HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.RegisterActivity" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.DateActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.RegisterActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.LoginActivity" />
+        <activity android:name="edu.bluejack18_2.schedulemanagerapplication.activity.DateActivity" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name="edu.bluejack18_2.schedulemanagerapplication.activity.MainActivity"
             android:theme="@style/Platform.MaterialComponents.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    tools:context=".activity.LoginActivity">
+    tools:context="edu.bluejack18_2.schedulemanagerapplication.activity.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView4"

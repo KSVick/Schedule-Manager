@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/colorBackground"
-    tools:context=".activity.NewsDetailActivity">
+    tools:context="edu.bluejack18_2.schedulemanagerapplication.activity.NewsDetailActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"

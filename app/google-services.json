@@ -58,6 +58,35 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:808962318553:android:83d911e233aa47f3ea1ec8",
+        "android_client_info": {
+          "package_name": "edu.bluejack18_2.schedulemanagerapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "808962318553-sh9l2qbg1enf9raf9ovno5v7sg9bfqeh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3jaIQW72OCdz49T_j1xQaUW50voxpiXI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "808962318553-sh9l2qbg1enf9raf9ovno5v7sg9bfqeh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"
