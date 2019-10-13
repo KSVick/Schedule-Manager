@@ -42,8 +42,8 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
     private ArrayList<Schedule> schedules = new ArrayList<>();
     private ArrayList<Schedule> myschedules = new ArrayList<>();
     private Button btnCompare, btnInsert, btnPickLocation;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-    SimpleDateFormat actionDateFormat = new SimpleDateFormat("MMMM yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat actionDateFormat = new SimpleDateFormat("MMMM yyyy");
     private boolean compare = true;
 
     public void refreshScheduleData(){
@@ -163,8 +163,6 @@ public class AddApointmentActivity extends AppCompatActivity implements View.OnC
                 }else{
                     refreshScheduleData();
                 }
-
-//                btnCompare.setEnabled(false);
                 break;
             case R.id.activity_add_apointment_btnInsertSchedule:
                 TextInputEditText textInputEditText = findViewById(R.id.activity_add_apointment_txtInputDescription);

@@ -62,7 +62,6 @@ public class DateActivity extends AppCompatActivity implements View.OnClickListe
                     schedules = new ArrayList<>();
                     for(DataSnapshot userSnapshot : dataSnapshot.getChildren()){
                         Schedule schedule = userSnapshot.getValue(Schedule.class);
-                        String key = userSnapshot.getKey();
                         Event ev = new Event(Color.BLUE, schedule.getDate().getTime(), schedule.getDescription());
                         compactCalendarView.addEvent(ev);
                         schedules.add(schedule);

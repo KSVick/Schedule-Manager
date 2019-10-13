@@ -35,8 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, TodayAgendaFragment.OnFragmentInteractionListener, ManageAppointmentFragment.OnFragmentInteractionListener {
-    private TextView lblFullname,lblEmail;
     private SharedPrefManager sharedPrefManager;
+    private boolean notFirstFetchFollow = false;
 
     private void replaceFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -75,7 +75,6 @@ public class HomeActivity extends AppCompatActivity
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 if(dataSnapshot.exists()){
                     addNotification("New Appointment", "You has gain a new appointment", HomeActivity.class);
                 }
@@ -91,10 +90,15 @@ public class HomeActivity extends AppCompatActivity
     public void countFollowers(){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         Query query = databaseReference.child(sharedPrefManager.getSPUserKey()).child("Followers");
+
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                addNotification("New Follower", "You has gain a new follower", ProfileActivity.class);
+                if(notFirstFetchFollow && dataSnapshot.exists()){
+                    addNotification("New Follower", "You has gain a new follower", ProfileActivity.class);
+                }else{
+                    notFirstFetchFollow = true;
+                }
             }
 
             @Override

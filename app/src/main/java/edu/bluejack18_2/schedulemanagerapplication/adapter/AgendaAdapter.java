@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class AgendaAdapter extends RecyclerView.Adapter<AgendaAdapter.ViewHolder>{
     private Context context;
     private ArrayList<Schedule> schedules;
-    SimpleDateFormat actionDateFormat = new SimpleDateFormat("dd MMMM yyyy");
+    private SimpleDateFormat actionDateFormat = new SimpleDateFormat("dd MMMM yyyy");
 
     public AgendaAdapter(Context context){
         this.context = context;

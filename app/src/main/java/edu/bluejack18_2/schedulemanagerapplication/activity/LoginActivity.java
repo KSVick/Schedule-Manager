@@ -47,8 +47,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.concurrent.Semaphore;
-
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener {
     private TextView lblRegister,lblError;
     private EditText txtUsername,txtPassword;
@@ -56,7 +54,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private GoogleSignInClient mGoogleSignInClient;
     private Context current;
     DatabaseReference databaseReference;
-    final Semaphore semaphore = new Semaphore(0);
 
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
@@ -105,13 +102,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
-//                Toast.makeText(current, "test test", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
-                Toast.makeText(current, "test test1", Toast.LENGTH_SHORT).show();
                 // ...
             }
 
@@ -121,9 +116,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(current, error.toString(), Toast.LENGTH_SHORT).show();
                 // ...
             }
-
         });
-
 
         lblRegister.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
@@ -135,7 +128,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-
 
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -157,9 +149,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             updateUI(null);
                             signOut();
                             LoginManager.getInstance().logOut();
-
-
-
                         }
 
                         // ...

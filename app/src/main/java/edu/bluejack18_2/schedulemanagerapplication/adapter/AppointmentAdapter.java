@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
@@ -29,6 +30,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
     private DatabaseReference databaseReference;
     private DatabaseReference databaseReferenceSchedule;
     private SharedPrefManager sharedPrefManager;
+    private SimpleDateFormat actionDateFormat = new SimpleDateFormat("dd MMMM yyyy");
 
     public AppointmentAdapter(ManageAppointmentFragment manageAppointmentFragment){
         this.manageAppointmentFragment = manageAppointmentFragment;
@@ -51,7 +53,7 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        holder.txtDate.setText(appointments.get(position).getDate().toString());
+        holder.txtDate.setText(actionDateFormat.format(appointments.get(position).getDate()));
         holder.txtDescription.setText(appointments.get(position).getDescription());
         holder.txtUser.setText(appointments.get(position).getFromUser().getFullname());
 
@@ -69,7 +71,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
                         databaseReferenceSchedule.child(scheduleId).setValue(schedule);
 
                         Toast.makeText(manageAppointmentFragment.getContext(), "Accepted", Toast.LENGTH_SHORT).show();
-
                     }
                 });
             }
@@ -97,7 +98,6 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter
     public int getItemCount() {
         return appointments.size();
     }
-
 
     protected class ViewHolder extends RecyclerView.ViewHolder{
         TextView txtDate, txtDescription, txtUser, txtLocation;

@@ -21,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-
     private DatabaseReference databaseReference;
     Context currentContext;
 
@@ -33,10 +32,8 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar spinner =(ProgressBar)findViewById(R.id.progressBar);
         spinner.setVisibility(View.VISIBLE);
 
-
-//                        Intent intent = new Intent(currentContext, AddApointmentActivity.class);
-
-
+        //Buat Debug
+//      Intent intent = new Intent(currentContext, AddApointmentActivity.class);
 
 //        CEK UDAH LOGIN ATAU BELUM
         SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
@@ -60,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(currentContext,"Welcome, "+user.getFullname(),Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(currentContext, HomeActivity.class);
 
-//                        Intent intent = new Intent(currentContext, AddApointmentActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                         startActivity(intent);
